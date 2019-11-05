@@ -161,10 +161,13 @@ public class Proxecto_Conxunto extends javax.swing.JFrame {
             if (!v.getName().contains("proxy")) {
                 String[] split = value.split(":");
                 Dialog dialog = new Dialog(split);
-                JOptionPane.showMessageDialog(this, dialog);
-                System.out.println(dialog.getListaVals());
-            }else{
-                JOptionPane.showInputDialog(this, null,v.getName(),JOptionPane.PLAIN_MESSAGE);
+                int save = JOptionPane.showConfirmDialog(this, dialog, v.getName(), JOptionPane.OK_OPTION);
+                if (save == 0) {
+                    System.out.println(dialog.getListaVals());
+                }
+                System.out.println(save);
+            } else {
+                JOptionPane.showInputDialog(this, null, v.getName(), JOptionPane.PLAIN_MESSAGE);
             }
         }
     }//GEN-LAST:event_jTableMouseClicked
