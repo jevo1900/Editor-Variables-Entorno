@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -42,7 +44,7 @@ public class Proxecto_Conxunto extends javax.swing.JFrame {
         while (sc.hasNextLine()) {
             str = sc.nextLine();
             String[] s = str.split("=");
-            listaVals.add(new Vars(s[0], s[1]));
+            listaVals.add(new Vars(s[0], s[1].replaceAll("\"", "")));
         }
         updateTable();
     }
@@ -158,16 +160,18 @@ public class Proxecto_Conxunto extends javax.swing.JFrame {
             Vars v = listaVals.get(num);
             String value = v.getValue();
             value = value.replaceAll("\"", "");
-            if (!v.getName().contains("proxy")) {
+            if (v.getName().contains("no_proxy")) {
+                String[] split = value.split(",");
+                JDialog dialog = new JDialog(this, true, split);
+                dialog.setVisible(true);
+                System.out.println(dialog.getListaVals());
+            } else if (!v.getName().contains("proxy")) {
                 String[] split = value.split(":");
-                Dialog dialog = new Dialog(split);
-                int save = JOptionPane.showConfirmDialog(this, dialog, v.getName(), JOptionPane.OK_OPTION);
-                if (save == 0) {
-                    System.out.println(dialog.getListaVals());
-                }
-                System.out.println(save);
+                JDialog dialog = new JDialog(this, true, split);
+                dialog.setVisible(true);
+                System.out.println(dialog.getListaVals());
             } else {
-                JOptionPane.showInputDialog(this, null, v.getName(), JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showInputDialog(this, null, v.getName(), JOptionPane.PLAIN_MESSAGE, null, null, value);
             }
         }
     }//GEN-LAST:event_jTableMouseClicked
