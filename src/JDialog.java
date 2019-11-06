@@ -8,19 +8,20 @@ import javax.swing.table.DefaultTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 /**
  *
  * @author usuario
  */
-public class Dialog extends javax.swing.JPanel {
+public class JDialog extends javax.swing.JDialog {
 
     private LinkedList<String> listaVals;
     private DefaultTableModel model;
-
     /**
-     * Creates new form Dialog
+     * Creates new form JDialog
      */
-    public Dialog(String[] ar) {
+    public JDialog(java.awt.Frame parent, boolean modal, String[] ar) {
+        super(parent, modal);
         initComponents();
         listaVals = new LinkedList<String>();
         model = (DefaultTableModel) jTable.getModel();
@@ -66,18 +67,29 @@ public class Dialog extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jScrollPaneTabla = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         jPanel10 = new javax.swing.JPanel();
-        jButtonEliminar = new javax.swing.JButton();
-        jPanel11 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        btnAdd = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(500, 2147483647));
+        setPreferredSize(new java.awt.Dimension(300, 438));
+
+        jPanel1.setMaximumSize(new java.awt.Dimension(300, 800));
+        jPanel1.setPreferredSize(new java.awt.Dimension(300, 500));
+        jPanel1.setVerifyInputWhenFocusTarget(false);
+
+        jPanel9.setMaximumSize(new java.awt.Dimension(300, 800));
+        jPanel9.setPreferredSize(new java.awt.Dimension(300, 402));
         jPanel9.setLayout(new java.awt.BorderLayout());
 
         jScrollPaneTabla.setAutoscrolls(true);
-        jScrollPaneTabla.setMaximumSize(new java.awt.Dimension(32767, 300));
+        jScrollPaneTabla.setMaximumSize(new java.awt.Dimension(300, 600));
         jScrollPaneTabla.setMinimumSize(new java.awt.Dimension(300, 60));
         jScrollPaneTabla.setName(""); // NOI18N
 
@@ -95,73 +107,82 @@ public class Dialog extends javax.swing.JPanel {
 
         jPanel9.add(jScrollPaneTabla, java.awt.BorderLayout.NORTH);
 
-        jButtonEliminar.setText("Delete");
-        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+        jPanel10.setMaximumSize(new java.awt.Dimension(300, 200));
+        jPanel10.setPreferredSize(new java.awt.Dimension(300, 40));
+
+        btnAdd.setText("Add");
+        jPanel10.add(btnAdd);
+
+        btnEliminar.setText("Delete");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEliminarActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
             }
         });
-        jPanel10.add(jButtonEliminar);
+        jPanel10.add(btnEliminar);
 
-        jPanel11.setAlignmentX(0.0F);
-        jPanel11.setAlignmentY(0.0F);
-        jPanel11.setMaximumSize(new java.awt.Dimension(30000000, 30));
-        jPanel11.setLayout(new java.awt.BorderLayout());
+        btnSave.setText("Save Values");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+        jPanel10.add(btnSave);
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("save changes and close?");
-        jLabel2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jLabel2.setAlignmentY(0.0F);
-        jLabel2.setMaximumSize(new java.awt.Dimension(300000000, 30));
-        jLabel2.setMinimumSize(new java.awt.Dimension(100, 30));
-        jLabel2.setName(""); // NOI18N
-        jLabel2.setPreferredSize(new java.awt.Dimension(100, 30));
-        jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel11.add(jLabel2, java.awt.BorderLayout.PAGE_END);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 692, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 438, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, 0)
                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, 0)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         int num = jTable.getSelectedRow();
         String s = listaVals.get(num);
         listaVals.remove(s);
         updateTable();
-    }//GEN-LAST:event_jButtonEliminarActionPerformed
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    
+    
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonEliminar;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPaneTabla;
     private javax.swing.JTable jTable;
