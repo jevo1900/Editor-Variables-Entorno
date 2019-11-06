@@ -17,12 +17,14 @@ public class JDialog extends javax.swing.JDialog {
 
     private LinkedList<String> listaVals;
     private DefaultTableModel model;
+    private boolean closed;
     /**
      * Creates new form JDialog
      */
     public JDialog(java.awt.Frame parent, boolean modal, String[] ar) {
         super(parent, modal);
         initComponents();
+        closed=false;
         listaVals = new LinkedList<String>();
         model = (DefaultTableModel) jTable.getModel();
 
@@ -32,7 +34,7 @@ public class JDialog extends javax.swing.JDialog {
         updateTable();
     }
 
-    public String getListaVals() {
+    public String getVals() {
         model = (DefaultTableModel) jTable.getModel();
         String str;
         if (model.getRowCount() > 1) {
@@ -44,6 +46,10 @@ public class JDialog extends javax.swing.JDialog {
             str = model.getValueAt(0, 0) + ":";
         }
         return str;
+    }
+
+    public boolean isClosed() {
+        return closed;
     }
 
     private void updateTable() {
@@ -111,6 +117,11 @@ public class JDialog extends javax.swing.JDialog {
         jPanel10.setPreferredSize(new java.awt.Dimension(300, 40));
 
         btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
         jPanel10.add(btnAdd);
 
         btnEliminar.setText("Delete");
@@ -162,14 +173,18 @@ public class JDialog extends javax.swing.JDialog {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         int num = jTable.getSelectedRow();
-        String s = listaVals.get(num);
-        listaVals.remove(s);
-        updateTable();
+        model.removeRow(num);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-
+        closed=true;
+        setVisible(false);
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        String[] ar={""};
+        model.addRow(ar);
+    }//GEN-LAST:event_btnAddActionPerformed
 
     
     

@@ -160,27 +160,41 @@ public class Proxecto_Conxunto extends javax.swing.JFrame {
             Vars v = listaVals.get(num);
             String value = v.getValue();
             value = value.replaceAll("\"", "");
+            String ancValue = value;
             if (v.getName().contains("no_proxy")) {
                 String[] split = value.split(",");
                 JDialog dialog = new JDialog(this, true, split);
                 dialog.setVisible(true);
-                System.out.println(dialog.getListaVals());
+                if (dialog.isClosed()) {
+                    System.out.println(dialog.getVals());
+                }
             } else if (!v.getName().contains("proxy")) {
                 String[] split = value.split(":");
                 JDialog dialog = new JDialog(this, true, split);
                 dialog.setVisible(true);
-                System.out.println(dialog.getListaVals());
+                if (dialog.isClosed()) {
+                    System.out.println(dialog.getVals());
+                }
             } else {
-                JOptionPane.showInputDialog(this, null, v.getName(), JOptionPane.PLAIN_MESSAGE, null, null, value);
+                value = (String) JOptionPane.showInputDialog(this, null, v.getName(), JOptionPane.PLAIN_MESSAGE, null, null, value);
+                if (value != null) {
+                    System.out.println(value);
+                }
             }
         }
     }//GEN-LAST:event_jTableMouseClicked
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        try {
-            Runtime.getRuntime().exec("reboot");
-        } catch (IOException ex) {
+        int v = JOptionPane.showConfirmDialog(this, "Reboot required to load new values, reboot now?", null, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        if (v == 0) {
+            try {
+                Runtime.getRuntime().exec("reboot");
+            } catch (IOException ex) {
+            }
+        } else {
+            System.exit(0);
         }
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
