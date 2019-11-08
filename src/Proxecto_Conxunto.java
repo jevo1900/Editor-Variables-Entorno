@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,7 +12,6 @@ import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -63,6 +61,7 @@ public class Proxecto_Conxunto extends javax.swing.JFrame {
         jScrollPaneTabla = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         jPanel10 = new javax.swing.JPanel();
+        btnAdd = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
 
@@ -96,7 +95,6 @@ public class Proxecto_Conxunto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable.setCellSelectionEnabled(true);
         jTable.setEnabled(true);
         jTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -108,6 +106,14 @@ public class Proxecto_Conxunto extends javax.swing.JFrame {
         jPanel9.add(jScrollPaneTabla, java.awt.BorderLayout.NORTH);
 
         jPanel3.add(jPanel9);
+
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+        jPanel10.add(btnAdd);
 
         jButtonEliminar.setText("Delete");
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -160,28 +166,29 @@ public class Proxecto_Conxunto extends javax.swing.JFrame {
             Vars v = listaVals.get(num);
             String value = v.getValue();
             value = value.replaceAll("\"", "");
-            String ancValue = value;
             if (v.getName().contains("no_proxy")) {
                 String[] split = value.split(",");
-                JDialog dialog = new JDialog(this, true, split);
+                JDialog dialog = new JDialog(this, true, split, false);
                 dialog.setVisible(true);
                 if (dialog.isClosed()) {
-                    System.out.println(dialog.getVals());
+                    listaVals.set(num, new Vars(v.getName(), dialog.getVals()));
                 }
             } else if (!v.getName().contains("proxy")) {
                 String[] split = value.split(":");
-                JDialog dialog = new JDialog(this, true, split);
+                JDialog dialog = new JDialog(this, true, split, true);
                 dialog.setVisible(true);
                 if (dialog.isClosed()) {
-                    System.out.println(dialog.getVals());
+                    listaVals.set(num, new Vars(v.getName(), dialog.getVals()));
                 }
             } else {
                 value = (String) JOptionPane.showInputDialog(this, null, v.getName(), JOptionPane.PLAIN_MESSAGE, null, null, value);
                 if (value != null) {
-                    System.out.println(value);
+                    listaVals.set(num, new Vars(v.getName(), value));
                 }
             }
+            updateTable();
         }
+
     }//GEN-LAST:event_jTableMouseClicked
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -196,6 +203,11 @@ public class Proxecto_Conxunto extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        listaVals.add(new Vars((String) JOptionPane.showInputDialog(this, null, "Name", JOptionPane.PLAIN_MESSAGE), ""));
+        updateTable();
+    }//GEN-LAST:event_btnAddActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,6 +248,7 @@ public class Proxecto_Conxunto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JPanel jPanel10;

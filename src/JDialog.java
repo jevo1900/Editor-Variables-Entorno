@@ -8,7 +8,6 @@ import javax.swing.table.DefaultTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author usuario
@@ -18,32 +17,35 @@ public class JDialog extends javax.swing.JDialog {
     private LinkedList<String> listaVals;
     private DefaultTableModel model;
     private boolean closed;
+    final boolean common;
+
     /**
      * Creates new form JDialog
      */
-    public JDialog(java.awt.Frame parent, boolean modal, String[] ar) {
+    public JDialog(java.awt.Frame parent, boolean modal, String[] ar, boolean common) {
         super(parent, modal);
         initComponents();
-        closed=false;
+        closed = false;
+        this.common = common;
         listaVals = new LinkedList<String>();
         model = (DefaultTableModel) jTable.getModel();
 
         for (String string : ar) {
             listaVals.add(string);
         }
-        updateTable();
+        fillTable();
     }
 
     public String getVals() {
-        model = (DefaultTableModel) jTable.getModel();
+        String union = (common) ? ":" : ",";
         String str;
         if (model.getRowCount() > 1) {
-            str = ""+model.getValueAt(0, 0);
+            str = "" + model.getValueAt(0, 0);
             for (int i = 1; i < model.getRowCount(); i++) {
-                str += ":"+model.getValueAt(i, 0);
+                str += union + model.getValueAt(i, 0);
             }
-        }else{
-            str = model.getValueAt(0, 0) + ":";
+        } else {
+            str = model.getValueAt(0, 0) + "";
         }
         return str;
     }
@@ -52,7 +54,7 @@ public class JDialog extends javax.swing.JDialog {
         return closed;
     }
 
-    private void updateTable() {
+    private void fillTable() {
         Collection<String> list = listaVals.subList(0, listaVals.size());
         model.setNumRows(0);
         for (String s : list) {
@@ -177,20 +179,15 @@ public class JDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        closed=true;
+        closed = true;
         setVisible(false);
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        String[] ar={""};
+        String[] ar = {""};
         model.addRow(ar);
     }//GEN-LAST:event_btnAddActionPerformed
 
-    
-    
-    
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
